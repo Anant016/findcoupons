@@ -31,7 +31,9 @@ app.get("/all", (req, res) => {
   });
 });
 
-app.get('/a', (req, res) => {
+
+// FOR HOSTING IT SHOULD COME FROM - ROUTER
+router.get('/a', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.write('<h1>Hello from Express.js!</h1>');
   res.end();
@@ -42,12 +44,12 @@ app.use(bodyParser.json());
 
 app.use(express.static("client/build"));
 app.use("*", express.static("client/build"));
-app.get("*", (req, res) => {
+router.get("*", (req, res) => {
   // res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
-// app.use('/.netlify/functions/server', router);  // path must route to lambda
+app.use('/.netlify/functions/server', router);  // path must route to lambda
 // app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 
